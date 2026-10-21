@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#123b32">
+<meta name="description" content="Create custom cards, build decks, shuffle and deal.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Deck Studio</title>
+<style>
+:root{--felt:#123b32;--felt2:#194b3e;--cream:#f7f4eb;--ink:#17231e;--muted:#64736b;--gold:#e5d1a1;--line:#dce3dd;--paper:#fffdf8;--shadow:0 12px 32px #09251b20}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:ui-rounded,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:calc(28px + env(safe-area-inset-bottom))}
+button,input,textarea,select{font:inherit}button{cursor:pointer;touch-action:manipulation}.top{background:var(--felt);color:white;padding:calc(18px + env(safe-area-inset-top)) 18px 20px;border-radius:0 0 24px 24px}.toprow{display:flex;align-items:center;gap:12px;max-width:900px;margin:auto}.logo{width:44px;height:44px;border-radius:14px;background:#ffffff12;border:1px solid #ffffff35;display:grid;place-items:center;font-size:24px}.brand{font-weight:850;letter-spacing:.13em;font-size:1.12rem}.tag{color:#d0e0d8;font-size:.84rem;margin-top:3px}.topcount{margin-left:auto;border:1px solid #ffffff35;border-radius:99px;padding:7px 11px;font-size:.8rem;color:#e8f0e9}
+main{max-width:900px;margin:0 auto;padding:18px 14px;display:grid;gap:16px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:0 3px 12px #10271b06}.panelhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.panel h2{font-size:1.08rem;margin:0}.muted{color:var(--muted);font-size:.88rem}.field{display:grid;gap:6px;margin-bottom:12px}.field label{font-size:.84rem;font-weight:700;color:#42534a}.field input,.field textarea,.field select{width:100%;border:1px solid #cfd9d1;border-radius:12px;background:#fff;padding:12px 13px;outline:none;color:var(--ink)}.field input:focus,.field textarea:focus{border-color:#32816a;box-shadow:0 0 0 3px #32816a20}.field textarea{resize:vertical;min-height:78px}.color-row{display:flex;gap:9px;flex-wrap:wrap}.swatch{width:32px;height:32px;border-radius:10px;border:2px solid #00000015;position:relative}.swatch.active:after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;font-weight:900;color:#173a2c}.creategrid{display:grid;gap:18px}.preview-wrap{display:flex;justify-content:center;padding:4px 0 10px}.playing-card{width:min(190px,58vw);aspect-ratio:2/3;background:white;border:1px solid #d4d8d3;border-radius:16px;padding:16px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;box-shadow:var(--shadow);overflow:hidden;overflow-wrap:anywhere}.playing-card .card-title{font-weight:850;font-size:1.04rem;line-height:1.2}.card-mark{font-size:2.3rem;opacity:.65}.playing-card .card-body{font-size:.88rem;white-space:pre-wrap}.btn{border:0;border-radius:13px;padding:12px 15px;font-weight:750;background:var(--felt);color:white;min-height:46px}.btn:active{transform:scale(.99)}.btn.secondary{background:#edf2ed;color:#214335;border:1px solid #d6e0d7}.btn.ghost{background:transparent;color:#42534a;border:1px solid #cfd9d1}.btn.danger{background:#fff0ed;color:#a13d2e;border:1px solid #f0d1ca}.btn:disabled{opacity:.4;cursor:not-allowed}.btnrow{display:flex;gap:9px}.btnrow>*{flex:1}.counter{border-radius:99px;background:#edf2ed;padding:6px 10px;font-size:.8rem;font-weight:700;color:#385747}.deckgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.mini-card{border:1px solid #00000012;border-radius:14px;padding:12px;min-height:132px;display:flex;flex-direction:column;gap:8px;overflow-wrap:anywhere}.mini-title{font-weight:800}.mini-body{font-size:.83rem;white-space:pre-wrap;flex:1}.mini-actions{display:flex;justify-content:space-between;align-items:center;gap:8px}.smallbtn{border:0;background:#ffffffb8;color:#43564b;border-radius:8px;padding:6px 8px;font-size:.78rem;font-weight:700}.empty{border:1px dashed #c7d3c9;border-radius:16px;padding:24px 16px;text-align:center;color:var(--muted)}.empty .big{font-size:1.8rem;margin-bottom:6px}.deal-options{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:12px 0}.deal-options label{font-size:.84rem;font-weight:700}.deal-options select{border:1px solid #cfd9d1;border-radius:10px;padding:9px;background:white}.dealt-card{position:relative;cursor:pointer}.dealt-card.hidden{background:repeating-linear-gradient(135deg,#174a3c,#174a3c 9px,#1c5746 9px,#1c5746 18px)!important;color:white;border:3px solid #e5d1a1}.dealt-card.hidden>*{visibility:hidden}.dealt-card.hidden:after{content:"DS";visibility:visible;position:absolute;inset:0;display:grid;place-items:center;color:#f4dfaa;font-size:2rem;font-weight:900;letter-spacing:.15em}.notice{font-size:.86rem;color:#385747;min-height:1.3em;margin-top:10px}.bottomnote{text-align:center;color:#7b877f;font-size:.78rem;padding:0 16px}
+@media(min-width:700px){main{padding:24px 20px;grid-template-columns:1fr 1fr;align-items:start}.panel.full{grid-column:1/-1}.creategrid{grid-template-columns:1fr 210px;align-items:start}.preview-wrap{padding-top:20px}.deckgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<header class="top"><div class="toprow"><div class="logo">♠</div><div><div class="brand">DECK STUDIO</div><div class="tag">Your cards. Your rules.</div></div><div class="topcount" id="headerCount">0 cards</div></div></header>
+<main>
+<section class="panel">
+ <div class="panelhead"><h2>Create a card</h2><span class="muted">01 / DESIGN</span></div>
+ <div class="creategrid">
+  <div>
+   <div class="field"><label for="cardTitle">Card title</label><input id="cardTitle" maxlength="70" placeholder="e.g. The Explorer"></div>
+   <div class="field"><label for="cardText">Description or instructions</label><textarea id="cardText" maxlength="500" placeholder="Add a question, challenge, character, or instruction..."></textarea></div>
+   <div class="field"><label>Card colour</label><div class="color-row" id="colors"></div></div>
+   <button class="btn" id="addCard" style="width:100%">＋ Add card to deck</button>
+  </div>
+  <div><div class="preview-wrap"><div class="playing-card" id="preview"><div class="card-title" id="previewTitle">Your card title</div><div class="card-mark">✦</div><div class="card-body" id="previewText">Your card text will appear here.</div></div></div><div class="muted" style="text-align:center">Live preview</div></div>
+ </div>
+ <div class="notice" id="notice" role="status">Create your first card to get started.</div>
+</section>
+<section class="panel">
+ <div class="panelhead"><h2>Your deck</h2><span class="counter" id="remainingCount">0 remaining</span></div>
+ <div class="btnrow"><button class="btn secondary" id="shuffle" disabled>⤨ Shuffle</button><button class="btn" id="deal" disabled>Deal cards →</button></div>
+ <div class="deal-options"><label for="dealCount">Deal</label><select id="dealCount"><option value="1">1 card</option><option value="2">2 cards</option><option value="3">3 cards</option><option value="5">5 cards</option><option value="all">All remaining</option></select><label style="display:flex;align-items:center;gap:7px"><input id="dealFaceDown" type="checkbox" checked> Deal face-down</label></div>
+ <div id="deckGrid" class="deckgrid"></div>
+</section>
+<section class="panel full">
+ <div class="panelhead"><h2>Dealt cards</h2><span class="counter" id="dealtCount">0 dealt</span></div>
+ <div class="btnrow" style="margin-bottom:14px"><button class="btn secondary" id="returnAll" disabled>↶ Return all to deck</button><button class="btn ghost" id="clearTable" disabled>Clear table</button></div>
+ <div id="dealtGrid" class="deckgrid"></div>
+ <p class="muted" style="margin:14px 0 0">Tap a face-down card to reveal it. Dealt cards are removed from the remaining deck until returned or the round is reset.</p>
+</section>
+</main>
+<div class="bottomnote">Deck Studio · Decks are saved on this device.</div>
+<script>
+const palette={White:"#fffdf8",Red:"#fde2e2",Blue:"#dbeafe",Green:"#d1fae5",Gold:"#fef3c7",Purple:"#ede9fe"};
+const $=id=>document.getElementById(id);
+let selectedColor="White", deck=[], dealt=[], hiddenIds=new Set();
+try{const saved=JSON.parse(localStorage.getItem("deck-studio-v1")||"{}");deck=Array.isArray(saved.deck)?saved.deck:[];dealt=Array.isArray(saved.dealt)?saved.dealt:[];hiddenIds=new Set(saved.hiddenIds||[]);}catch(e){}
+function save(){try{localStorage.setItem("deck-studio-v1",JSON.stringify({deck,dealt,hiddenIds:[...hiddenIds]}));}catch(e){notice("Could not save locally. Your browser storage may be full.");}}
+function notice(s){$("notice").textContent=s;}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function colorControls(){$("colors").innerHTML=Object.entries(palette).map(([name,color])=>`<button class="swatch ${name===selectedColor?"active":""}" style="background:${color}" aria-label="${name}" title="${name}" data-color="${name}"></button>`).join("");}
+function preview(){const title=$("cardTitle").value.trim(),text=$("cardText").value.trim();$("preview").style.background=palette[selectedColor];$("previewTitle").textContent=title||"Your card title";$("previewText").textContent=text||"Your card text will appear here.";}
+function cardHTML(c,mode,index){const isHidden=mode==="dealt"&&hiddenIds.has(c.id);return `<article class="mini-card ${isHidden?"dealt-card hidden":mode==="dealt"?"dealt-card":""}" style="background:${palette[c.color]||palette.White}" ${mode==="dealt"?`data-reveal="${c.id}" role="button" tabindex="0" aria-label="${isHidden?"Reveal":"View"} ${esc(c.title)}"`:""}><div class="mini-title">${esc(c.title)}</div><div class="mini-body">${esc(c.text||"No description")}</div><div class="mini-actions"><span class="muted">${mode==="dealt"?(isHidden?"Tap to reveal":`Dealt ${dealt.length-index}`):esc(c.color)}</span>${mode==="deck"?`<button class="smallbtn" data-remove="${c.id}">Remove</button>`:""}</div></article>`;}
+function render(){
+ $("headerCount").textContent=`${deck.length} in deck`;$("remainingCount").textContent=`${deck.length} remaining`;$("dealtCount").textContent=`${dealt.length} dealt`;
+ $("shuffle").disabled=deck.length<2;$("deal").disabled=deck.length===0;$("returnAll").disabled=dealt.length===0;$("clearTable").disabled=dealt.length===0;
+ $("deckGrid").innerHTML=deck.length?deck.map((c,i)=>cardHTML(c,"deck",i)).join(""):`<div class="empty" style="grid-column:1/-1"><div class="big">♧</div><strong>Your deck is empty</strong><div class="muted">Create cards above to fill your deck.</div></div>`;
+ $("dealtGrid").innerHTML=dealt.length?dealt.map((c,i)=>cardHTML(c,"dealt",i)).join(""):`<div class="empty" style="grid-column:1/-1"><div class="big">🂠</div><strong>No cards dealt yet</strong><div class="muted">Shuffle your deck, then deal a card or a hand.</div></div>`;
+ save();
+}
+$("colors").addEventListener("click",e=>{const b=e.target.closest("[data-color]");if(!b)return;selectedColor=b.dataset.color;colorControls();preview();});
+$("cardTitle").addEventListener("input",preview);$("cardText").addEventListener("input",preview);
+$("addCard").addEventListener("click",()=>{const title=$("cardTitle").value.trim();if(!title){notice("Give your card a title first.");$("cardTitle").focus();return;}deck.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),title,text:$("cardText").value.trim(),color:selectedColor});$("cardTitle").value="";$("cardText").value="";preview();render();notice("Card added to your deck.");});
+$("shuffle").addEventListener("click",()=>{for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];}render();notice("Deck shuffled.");});
+$("deal").addEventListener("click",()=>{const raw=$("dealCount").value;const n=raw==="all"?deck.length:Math.min(Number(raw),deck.length);const cards=deck.splice(0,n);dealt.unshift(...cards);if($("dealFaceDown").checked)cards.forEach(c=>hiddenIds.add(c.id));render();notice(`${n} card${n===1?"":"s"} dealt. Tap a face-down card to reveal it.`);});
+$("deckGrid").addEventListener("click",e=>{const b=e.target.closest("[data-remove]");if(!b)return;deck=deck.filter(c=>c.id!==b.dataset.remove);render();notice("Card removed from deck.");});
+function reveal(e){const el=e.target.closest("[data-reveal]");if(!el)return;const id=el.dataset.reveal;if(hiddenIds.has(id)){hiddenIds.delete(id);render();notice("Card revealed.");}}
+$("dealtGrid").addEventListener("click",reveal);$("dealtGrid").addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.closest("[data-reveal]")){e.preventDefault();reveal(e);}});
+$("returnAll").addEventListener("click",()=>{deck.push(...dealt);dealt=[];hiddenIds.clear();render();notice("All dealt cards returned to the deck.");});
+$("clearTable").addEventListener("click",()=>{if(!confirm("Discard all dealt cards? They will not return to the deck."))return;dealt.forEach(c=>hiddenIds.delete(c.id));dealt=[];render();notice("Table cleared. Discarded cards were not returned to the deck.");});
+colorControls();preview();render();
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+</script>
+</body></html>

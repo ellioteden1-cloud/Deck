@@ -1,0 +1,19 @@
+{
+  "name": "Deck Studio",
+  "short_name": "Deck Studio",
+  "description": "Create custom cards, build decks, shuffle and deal.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f4eb",
+  "theme_color": "#123b32",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
